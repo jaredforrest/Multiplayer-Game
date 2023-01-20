@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     // Movement
     public float moveSpeed = 5f;
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
         float moveY = Input.GetAxis("Vertical");
 
         // Weapon
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             weapon.Fire();
         }
@@ -41,12 +41,6 @@ public class PlayerController : MonoBehaviour
         // Movement
         moveDirection = new Vector2(moveX, moveY).normalized;
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        // Health
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            TakeDamage(20);
-        }
     }
 
     private void FixedUpdate()
@@ -60,7 +54,7 @@ public class PlayerController : MonoBehaviour
         rb.rotation = aimAngle;
     }
 
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
 
