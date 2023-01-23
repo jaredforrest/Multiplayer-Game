@@ -1288,6 +1288,7 @@ MonoBehaviour:
   rb: {fileID: 1510081860}
   weapon: {fileID: 816984347}
   player: {fileID: 1021922172}
+  speed: 1
 --- !u!1 &1697731990
 GameObject:
   m_ObjectHideFlags: 0

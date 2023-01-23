@@ -9,6 +9,10 @@ public class Bot1 : MonoBehaviour
     public Weapon weapon;
 
     public GameObject player;
+    public float speed = 3f;
+
+    float timer = 0f;
+    float waitingTime = 5f;
 
     void Start()
     {
@@ -19,18 +23,23 @@ public class Bot1 : MonoBehaviour
     void Update()
     {
         // Weapon
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
+        timer += Time.deltaTime;
+        if(timer > waitingTime){
             weapon.Fire();
+            timer = 0;
         }
     }
 
     private void FixedUpdate()
     {
-        // Weapon 
         Vector2 aimDirection = new Vector2(player.transform.position.x - rb.position.x, player.transform.position.y - rb.position.y);
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = aimAngle;
+
+        if (Vector3.Distance(transform.position, player.transform.position) > 2f){
+             transform.Translate(new Vector3(0, speed * Time.deltaTime, 0));
+        }
+        // Weapon 
     }
 }
 
