@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5034611177237747328}
   - component: {fileID: 5034611177237747329}
   - component: {fileID: 5034611177237747330}
+  - component: {fileID: -1744898393749808543}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -127,3 +128,19 @@ MonoBehaviour:
   target: {fileID: 0}
   bot1Prefab: {fileID: 8918266184063938352, guid: 63ed591601c2171419bdf32ccce328fd, type: 3}
   healthBarCanvasPrefab: {fileID: 8601278000325408799, guid: 659514283851b5e45a2b9c5aa88effe3, type: 3}
+--- !u!114 &-1744898393749808543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5034611177237747331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
