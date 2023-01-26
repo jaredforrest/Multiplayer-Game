@@ -16,10 +16,19 @@ public class PlayerController : MonoBehaviour, IDamageable
     public int maxHealth = 100;
     public int currentHealth;
 
-    public HealthBar healthBar;
+    //public GameObject healthBarCanvas;
+    public GameObject healthBarCanvasPrefab;
+    HealthBar healthBar;
 
     void Start()
     {
+        GameObject healthBarCanvas = Instantiate(healthBarCanvasPrefab);
+
+        StayAboveTarget sat = healthBarCanvas.GetComponent<StayAboveTarget>();
+        sat.targetToFollow = transform;
+
+        healthBar = healthBarCanvas.transform.GetChild(0).GetComponent<HealthBar>();
+
         // Health
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
