@@ -241,6 +241,9 @@ PrefabInstance:
     - target: {fileID: 6306631585482961990, guid: 5597e70f6324c1f4badf5333a879b506, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3395730849
+    - target: {fileID: 6963968591506742458, guid: 5597e70f6324c1f4badf5333a879b506, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6963968591506742459, guid: 5597e70f6324c1f4badf5333a879b506, type: 3}
       propertyPath: m_Sprite
@@ -273,6 +276,10 @@ PrefabInstance:
     - target: {fileID: 6963968591507641575, guid: 5597e70f6324c1f4badf5333a879b506, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963968591702900862, guid: 5597e70f6324c1f4badf5333a879b506, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6963968591702900863, guid: 5597e70f6324c1f4badf5333a879b506, type: 3}
       propertyPath: m_Sprite
@@ -434,6 +441,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6963968592500397495, guid: 5597e70f6324c1f4badf5333a879b506, type: 3}
+      propertyPath: m_LocalScale.y
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6963968592553424872, guid: 5597e70f6324c1f4badf5333a879b506, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -513,6 +524,10 @@ PrefabInstance:
     - target: {fileID: 6963968593039654669, guid: 5597e70f6324c1f4badf5333a879b506, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963968593141499860, guid: 5597e70f6324c1f4badf5333a879b506, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6963968593141499861, guid: 5597e70f6324c1f4badf5333a879b506, type: 3}
       propertyPath: m_Sprite
@@ -724,7 +739,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6620458959387468459, guid: 4101b882e62d6444cbf50ed67ffc051d, type: 3}
       propertyPath: m_Mass
-      value: 0.0001
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6620458959387468459, guid: 4101b882e62d6444cbf50ed67ffc051d, type: 3}
       propertyPath: m_BodyType

@@ -257,6 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 8918266184063938358}
   weapon: {fileID: 8918266182347414377}
+  weaponTransform: {fileID: 8918266182347414382}
   target: {fileID: 0}
   speed: 1
   maxHealth: 50
