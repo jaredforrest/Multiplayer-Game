@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour, IDamageable
         // Health
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
