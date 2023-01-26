@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: background
+    uniqueID: 1379363401
+    locked: 0
+  - name: forground
+    uniqueID: 3184783309
+    locked: 0
+  - name: player
+    uniqueID: 1567675061
+    locked: 0
+  - name: weapon
+    uniqueID: 3771489099
+    locked: 0
