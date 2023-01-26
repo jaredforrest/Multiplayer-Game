@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public int damage;
     void Start()
     {
         // Destroy bullet after 1 second
@@ -16,7 +17,7 @@ public class Bullet : MonoBehaviour
 
         if(damageable != null)
         {
-            damageable.TakeDamage(5);
+            damageable.TakeDamage(damage);
         }
 
         Destroy(gameObject);
