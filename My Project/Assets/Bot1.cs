@@ -44,7 +44,7 @@ public class Bot1 : MonoBehaviour, IDamageable
     private void FixedUpdate()
     {
         Vector2 aimDirection = new Vector2(target.transform.position.x - rb.position.x, target.transform.position.y - rb.position.y);
-        float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
+        float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         rb.rotation = aimAngle;
 
         if (Vector3.Distance(transform.position, target.transform.position) > 2f){
