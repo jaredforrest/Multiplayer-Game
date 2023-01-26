@@ -7,6 +7,7 @@ public class Bot1 : MonoBehaviour, IDamageable
     // Movement
     public Rigidbody2D rb;
     public Weapon weapon;
+    public Transform weaponTransform;
 
     public GameObject target;
     public float speed = 3f;
@@ -43,12 +44,13 @@ public class Bot1 : MonoBehaviour, IDamageable
 
     private void FixedUpdate()
     {
-        Vector2 aimDirection = new Vector2(target.transform.position.x - rb.position.x, target.transform.position.y - rb.position.y);
+        //Vector2 aimDirection = new Vector2(target.transform.position.x - rb.position.x, target.transform.position.y - rb.position.y);
+        Vector2 aimDirection = new Vector2(target.transform.position.x - weaponTransform.position.x, target.transform.position.y - weaponTransform.position.y);
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         rb.rotation = aimAngle;
 
-        if (Vector3.Distance(transform.position, target.transform.position) > 2f){
-             transform.Translate(new Vector3(0, speed * Time.deltaTime, 0));
+        if (Vector3.Distance(transform.position, target.transform.position) > 5f){
+             transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
         }
         // Weapon 
     }
