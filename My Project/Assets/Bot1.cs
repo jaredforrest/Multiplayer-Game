@@ -10,10 +10,11 @@ public class Bot1 : MonoBehaviour, IDamageable
     public Transform weaponTransform;
 
     public GameObject target;
-    public float speed = 3f;
+
+    public float moveSpeed;
 
     float timer = 0f;
-    float waitingTime = 5f;
+    float waitingTime = 2f;
 
     // Health
     public int maxHealth = 50;
@@ -44,15 +45,19 @@ public class Bot1 : MonoBehaviour, IDamageable
 
     private void FixedUpdate()
     {
-        //Vector2 aimDirection = new Vector2(target.transform.position.x - rb.position.x, target.transform.position.y - rb.position.y);
+        // Right is forward
+        if (Vector3.Distance(transform.position, target.transform.position) > 5f)
+        {
+            rb.AddForce(transform.right * moveSpeed);
+        }
+        else if (Vector3.Distance(transform.position, target.transform.position) < 3f)
+        {
+            rb.AddForce(-transform.right * moveSpeed);
+        }
+
         Vector2 aimDirection = new Vector2(target.transform.position.x - weaponTransform.position.x, target.transform.position.y - weaponTransform.position.y);
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         rb.rotation = aimAngle;
-
-        if (Vector3.Distance(transform.position, target.transform.position) > 5f){
-             transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
-        }
-        // Weapon 
     }
     private void OnDestroy()
     {
