@@ -7,8 +7,6 @@ public class PlayerController : NetworkBehaviour, IDamageable
 {
 
     // Movement
-
-    
     public float moveSpeed = 5f;
     public RectTransform rectTransform;
     

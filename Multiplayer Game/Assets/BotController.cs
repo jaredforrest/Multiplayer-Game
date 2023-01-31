@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BotController : NetworkBehaviour, IDamageable
 {
@@ -23,12 +24,14 @@ public class BotController : NetworkBehaviour, IDamageable
     public GameObject healthBarCanvas;
     HealthBar healthBar;
     
-    private float moveSpeed;
     public RectTransform rectTransform;
     private float weaponTimer = 0f;
     private float waitingTime;
 
     public int BotType;
+
+    NavMeshAgent agent;
+    private Vector3 target;
 
     private void Start()
     {
@@ -38,7 +41,7 @@ public class BotController : NetworkBehaviour, IDamageable
             //Pistol
             case 1:
                 maxHealth = 100;
-                moveSpeed = 7;
+                agent.speed = 7;
                 waitingTime = 1f;
                 weapon.damage = 7;
                 weapon.fireForce = 20f;
@@ -47,7 +50,7 @@ public class BotController : NetworkBehaviour, IDamageable
             //Shotgun
             case 2:
                 maxHealth = 100;
-                moveSpeed = 5;
+                agent.speed = 5;
                 waitingTime = 2f;
                 weapon.damage = 10;
                 weapon.fireForce = 20f;
@@ -56,7 +59,7 @@ public class BotController : NetworkBehaviour, IDamageable
             //Rifle
             case 3:
                 maxHealth = 100;
-                moveSpeed = 5;
+                agent.speed = 5;
                 waitingTime = 1f;
                 weapon.damage = 10;
                 weapon.fireForce = 20f;
@@ -65,7 +68,7 @@ public class BotController : NetworkBehaviour, IDamageable
             //Sniper
             case 4:
                 maxHealth = 100;
-                moveSpeed = 4;
+                agent.speed = 4;
                 waitingTime = 4f;
                 weapon.damage = 20;
                 weapon.fireForce = 20f;
@@ -74,7 +77,7 @@ public class BotController : NetworkBehaviour, IDamageable
             //Tank
             case 5:
                 maxHealth = 300;
-                moveSpeed = 2;
+                agent.speed = 2;
                 waitingTime = 2f;
                 weapon.damage = 10;
                 weapon.fireForce = 20f;
@@ -83,7 +86,7 @@ public class BotController : NetworkBehaviour, IDamageable
             //Machine Gun
             case 6:
                 maxHealth = 100;
-                moveSpeed = 5;
+                agent.speed = 5;
                 waitingTime = 0.2f;
                 weapon.damage = 2;
                 weapon.fireForce = 20f;
@@ -93,14 +96,24 @@ public class BotController : NetworkBehaviour, IDamageable
         
         healthBar = healthBarCanvas.transform.GetChild(0).GetComponent<HealthBar>();
 
+        
+        
         // Health
         currentHealth.Value = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
     }
 
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+    }
+
     private void Update()
     {
         healthBar.SetHealth(currentHealth.Value);
+        
         GameObject[] Players = GameObject.FindGameObjectsWithTag("Player");
         GameObject closest = Players[0];
         float player_distance = Mathf.Infinity;
@@ -113,23 +126,21 @@ public class BotController : NetworkBehaviour, IDamageable
                 {
                     closest = player;
                     player_distance = distance;
+                    target = player.transform.position;
                 }
-            } 
+            }
+
+            agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
+            
+            
+            
             Vector2 aimDirection = new Vector2(closest.transform.position.x - weapon.transform.position.x, closest.transform.position.y - weapon.transform.position.y);
             float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
             rb.rotation = aimAngle;
             
             rectTransform.rotation = Quaternion.Euler(0, 0,0);
+
             
-            // Right is forward
-            if (Vector3.Distance(transform.position, closest.transform.position) > 5f)
-            {
-                rb.AddForce(transform.right * moveSpeed);
-            }
-            else if (Vector3.Distance(transform.position, closest.transform.position) < 3f)
-            {
-                rb.AddForce(-transform.right * moveSpeed);
-            }
             // Weapon
             if (Vector3.Distance(transform.position, closest.transform.position) < 10f)
             {
