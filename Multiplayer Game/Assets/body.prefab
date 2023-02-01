@@ -56,6 +56,7 @@ MonoBehaviour:
   rectTransform: {fileID: 1136953157012702311}
   rb: {fileID: 6021514839218384510}
   weapon: {fileID: 1098555153542659411}
+  fireRate: 0.1
   maxHealth: 100
   initialHealth: 0
   healthBarCanvas: {fileID: 1136953157012702236}

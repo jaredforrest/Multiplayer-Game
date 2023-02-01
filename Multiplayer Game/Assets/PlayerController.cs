@@ -12,6 +12,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
     
     public Rigidbody2D rb;
     public Weapon weapon;
+    public float fireRate;
+    private float nextShot;
 
     Vector2 moveDirection;
     Vector2 mousePosition;
@@ -41,6 +43,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         healthBar.SetMaxHealth(maxHealth);
 
         //Cursor.visible = false;
+        nextShot = Time.time;
 
 
     }
@@ -56,9 +59,10 @@ public class PlayerController : NetworkBehaviour, IDamageable
         float moveY = Input.GetAxis("Vertical");
 
         // Weapon
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKey(KeyCode.Space) && Time.time>nextShot)
         {
             weapon.FireServerRpc();
+            nextShot = Time.time + fireRate;
         }
 
         //Debug.Log(OwnerClientId + ", Health : " + currentHealth);
