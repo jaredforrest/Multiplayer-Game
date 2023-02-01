@@ -28,6 +28,9 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     public GameObject cameraPrefab;
     public GameObject camera;
+
+    public GameObject footprint;
+    float footTime;
  
 
     void Start()
@@ -48,6 +51,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     }
 
+
     // Update is called once per frame
     void Update()
     {
@@ -61,7 +65,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         // Weapon
         if(Input.GetKey(KeyCode.Space) && Time.time>nextShot)
         {
-            weapon.FireServerRpc();
+            weapon.Fire();
             nextShot = Time.time + fireRate;
         }
 
@@ -74,6 +78,13 @@ public class PlayerController : NetworkBehaviour, IDamageable
         //var mousePos = Input.mousePosition;
         //mousePos.z = 10; // select distance = 10 units from the camera
         //mousePosition = GetComponent<Camera>().ScreenToWorldPoint(mousePos);
+
+        footTime += Time.deltaTime;
+        if (footTime > 0.5)
+        {
+            Instantiate(footprint, transform.position, transform.rotation);
+            footTime = 0;
+        }
 
     
     }
