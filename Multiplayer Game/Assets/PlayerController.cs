@@ -31,6 +31,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     public GameObject footprint;
     float footTime;
+
+    Animator m_Animator;
  
 
     void Start()
@@ -48,7 +50,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         //Cursor.visible = false;
         nextShot = Time.time;
 
-
+        m_Animator = gameObject.GetComponent<Animator>();
     }
 
 
@@ -65,6 +67,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         // Weapon
         if(Input.GetKey(KeyCode.Space) && Time.time>nextShot)
         {
+            m_Animator.SetTrigger("shootTrig");
             weapon.Fire();
             nextShot = Time.time + fireRate;
         }
