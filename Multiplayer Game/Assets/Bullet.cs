@@ -8,14 +8,23 @@ public class Bullet : NetworkBehaviour
     public int damage;
     void Start()
     {
-        // Destroy bullet after 1 second
+        if (!IsOwner || !IsSpawned)
+        {
+            return;
+        }
 
-       
-        Destroy(gameObject, 1);
+        // Disabled because causes errors
+        // Destroy bullet after 1 second
+        //Destroy(gameObject, 1);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (!IsOwner || !IsSpawned)
+        {
+            return;
+        }
+
         IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
 
         if(damageable != null)
@@ -23,7 +32,6 @@ public class Bullet : NetworkBehaviour
             damageable.TakeDamage(damage);
         }
 
-        
-        Destroy(gameObject);
+        gameObject.GetComponent<NetworkObject>().Despawn();
     }
 }

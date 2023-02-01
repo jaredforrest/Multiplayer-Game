@@ -20,6 +20,7 @@ public class BotController : NetworkBehaviour, IDamageable
     public int maxHealth;
     public int initialHealth;
     private NetworkVariable<int> currentHealth = new NetworkVariable<int>(100);
+    private NetworkManager networkManager; 
 
     public GameObject healthBarCanvas;
     HealthBar healthBar;
@@ -28,15 +29,14 @@ public class BotController : NetworkBehaviour, IDamageable
     private float weaponTimer = 0f;
     private float waitingTime;
 
-    public int BotType;
+    public NetworkVariable<int> BotType;
 
     NavMeshAgent agent;
-    private Vector3 target;
 
     private void Start()
     {
         //Type of bot
-        switch (BotType)
+        switch (BotType.Value)
         {
             //Pistol
             case 1:
@@ -96,11 +96,14 @@ public class BotController : NetworkBehaviour, IDamageable
         
         healthBar = healthBarCanvas.transform.GetChild(0).GetComponent<HealthBar>();
 
-        
-        
         // Health
-        currentHealth.Value = maxHealth;
+        if(IsOwner)
+        {
+            currentHealth.Value = maxHealth;
+        }
         healthBar.SetMaxHealth(maxHealth);
+
+        networkManager = GetComponent<NetworkManager>();
     }
 
     private void Awake()
@@ -113,42 +116,39 @@ public class BotController : NetworkBehaviour, IDamageable
     private void Update()
     {
         healthBar.SetHealth(currentHealth.Value);
-        
-        GameObject[] Players = GameObject.FindGameObjectsWithTag("Player");
-        GameObject closest = Players[0];
-        float player_distance = Mathf.Infinity;
-        if (Players != null)
+
+        // Only run the rest of the code on ther server
+        if (!IsOwner || !IsSpawned)
         {
-            foreach (GameObject player in Players)
+            return;
+        }
+
+        GameObject[] Players = GameObject.FindGameObjectsWithTag("Player");
+        float player_distance = Mathf.Infinity;
+        Vector2 closestPosition = new Vector2(0, 0);
+        foreach (GameObject player in Players)
+        {
+            float distance = Vector2.Distance(transform.position, player.transform.position);
+            if (distance < player_distance)
             {
-                float distance = Vector2.Distance(transform.position, player.transform.position);
-                if (distance < player_distance)
-                {
-                    closest = player;
-                    player_distance = distance;
-                    target = player.transform.position;
-                }
+                closestPosition = player.transform.position;
+                player_distance = distance;
             }
+        }
 
-            agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
-            
-            
-            
-            Vector2 aimDirection = new Vector2(closest.transform.position.x - weapon.transform.position.x, closest.transform.position.y - weapon.transform.position.y);
-            float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-            rb.rotation = aimAngle;
-            
-            rectTransform.rotation = Quaternion.Euler(0, 0,0);
-
-            
-            // Weapon
-            if (Vector3.Distance(transform.position, closest.transform.position) < 10f)
-            {
-                weaponTimer += Time.deltaTime;
+        agent.SetDestination(new Vector3(closestPosition.x, closestPosition.y, transform.position.z));
+        
+        Vector2 aimDirection = new Vector2(closestPosition.x - weapon.transform.position.x, closestPosition.y - weapon.transform.position.y);
+        float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+        rb.rotation = aimAngle;
+        
+        // Weapon
+        if (Vector3.Distance(transform.position, closestPosition) < 10f)
+        {
+            weaponTimer += Time.deltaTime;
                 if(weaponTimer > waitingTime){ 
-                    weapon.FireServerRpc();
-                    weaponTimer = 0;
-                }
+                weapon.Fire();
+                weaponTimer = 0;
             }
         }
     }
@@ -161,5 +161,9 @@ public class BotController : NetworkBehaviour, IDamageable
         {
             Destroy(gameObject);
         }
+    }
+    public void LateUpdate()
+    {
+            rectTransform.rotation = Quaternion.Euler(0, 0,0);
     }
 }

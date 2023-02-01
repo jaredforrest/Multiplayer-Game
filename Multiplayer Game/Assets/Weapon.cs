@@ -11,12 +11,20 @@ public class Weapon : NetworkBehaviour
     public Transform firePoint;
     public float fireForce;
 
+    public void Fire()
+    {
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        bullet.GetComponent<Bullet>().damage = damage;
+        bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.up * fireForce, ForceMode2D.Impulse);
+        bullet.GetComponent<NetworkObject>().Spawn();
+    }
+
     [ServerRpc]
     public void FireServerRpc()
     {
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         bullet.GetComponent<Bullet>().damage = damage;
         bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.up * fireForce, ForceMode2D.Impulse);
-        bullet.GetComponent<NetworkObject>().Spawn(true);
+        bullet.GetComponent<NetworkObject>().Spawn();
     }
 }

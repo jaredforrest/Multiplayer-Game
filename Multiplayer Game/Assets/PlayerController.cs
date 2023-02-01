@@ -30,11 +30,9 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     void Start()
     {
-        
         if(IsOwner){
             camera = Instantiate(cameraPrefab);
         }
-
         
         healthBar = healthBarCanvas.transform.GetChild(0).GetComponent<HealthBar>();
 
@@ -42,7 +40,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         currentHealth.Value = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
 
-        Cursor.visible = false;
+        //Cursor.visible = false;
 
 
     }
@@ -78,7 +76,6 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     private void FixedUpdate()
     {
-        
         // Movement
         rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
 
@@ -86,18 +83,15 @@ public class PlayerController : NetworkBehaviour, IDamageable
         Vector2 aimDirection = mousePosition - rb.position;
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         rb.rotation = aimAngle;
-        //healthBar.transform.rotation = Quaternion.Euler(0, 0, 0);
-        rectTransform.rotation = Quaternion.Euler(0, 0,0);
     }
 
     public void TakeDamage(int damage)
     {
         currentHealth.Value -= damage;
-
-        
     }
 
     private void LateUpdate() {
+        rectTransform.rotation = Quaternion.Euler(0, 0,0);
         if (IsOwner){
         camera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);        
         }
