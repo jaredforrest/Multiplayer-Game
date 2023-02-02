@@ -57,6 +57,13 @@ public class PlayerController : NetworkBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
+        footTime += Time.deltaTime;
+        if (footTime > 0.5)
+        {
+            Instantiate(footprint, transform.position, transform.rotation);
+            footTime = 0;
+        }
+
        healthBar.SetHealth(currentHealth.Value);
         if (!IsOwner) return;
         
@@ -68,7 +75,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         if(Input.GetKey(KeyCode.Space) && Time.time>nextShot)
         {
             m_Animator.SetTrigger("shootTrig");
-            weapon.Fire();
+            weapon.Fire(true);
             nextShot = Time.time + fireRate;
         }
 
@@ -81,16 +88,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
         //var mousePos = Input.mousePosition;
         //mousePos.z = 10; // select distance = 10 units from the camera
         //mousePosition = GetComponent<Camera>().ScreenToWorldPoint(mousePos);
-
-        footTime += Time.deltaTime;
-        if (footTime > 0.5)
-        {
-            Instantiate(footprint, transform.position, transform.rotation);
-            footTime = 0;
-        }
-
-    
     }
+
 
     private void FixedUpdate()
     {
@@ -103,7 +102,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         rb.rotation = aimAngle;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, bool fromPlayer, ulong shooterCliendId)
     {
         currentHealth.Value -= damage;
     }
@@ -112,6 +111,15 @@ public class PlayerController : NetworkBehaviour, IDamageable
         rectTransform.rotation = Quaternion.Euler(0, 0,0);
         if (IsOwner){
         camera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);        
+        }
+    }
+
+    public void addHealth(int health)
+    {
+        currentHealth.Value += health;
+        if(currentHealth.Value > maxHealth)
+        {
+            currentHealth.Value = maxHealth;
         }
     }
 }

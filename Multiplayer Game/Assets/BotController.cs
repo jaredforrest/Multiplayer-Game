@@ -7,6 +7,7 @@ using UnityEngine.AI;
 
 public class BotController : NetworkBehaviour, IDamageable
 {
+
     public SpriteRenderer spriteRenderer;
     public Sprite pistolSprite;
     public Sprite shotgunSprite;
@@ -18,10 +19,7 @@ public class BotController : NetworkBehaviour, IDamageable
 
     // Health
     public int maxHealth;
-    public int initialHealth;
     private NetworkVariable<int> currentHealth = new NetworkVariable<int>(100);
-    private NetworkManager networkManager; 
-
     public GameObject healthBarCanvas;
     HealthBar healthBar;
     
@@ -29,14 +27,29 @@ public class BotController : NetworkBehaviour, IDamageable
     private float weaponTimer = 0f;
     private float waitingTime;
 
-    public NetworkVariable<int> BotType;
+    public int BotType;
 
     NavMeshAgent agent;
 
     private void Start()
     {
+        setBotTypeClientRpc(BotType);
+        
+        healthBar = healthBarCanvas.transform.GetChild(0).GetComponent<HealthBar>();
+
+        // Health
+        if(IsOwner)
+        {
+            currentHealth.Value = maxHealth;
+        }
+        healthBar.SetMaxHealth(maxHealth);
+    }
+    
+    [ClientRpc]
+     private void setBotTypeClientRpc(int BotType)
+     {
         //Type of bot
-        switch (BotType.Value)
+        switch (BotType)
         {
             //Pistol
             case 1:
@@ -93,18 +106,8 @@ public class BotController : NetworkBehaviour, IDamageable
                 spriteRenderer.sprite = pistolSprite;
                 break;
         }
-        
-        healthBar = healthBarCanvas.transform.GetChild(0).GetComponent<HealthBar>();
 
-        // Health
-        if(IsOwner)
-        {
-            currentHealth.Value = maxHealth;
-        }
-        healthBar.SetMaxHealth(maxHealth);
-
-        networkManager = GetComponent<NetworkManager>();
-    }
+     }
 
     private void Awake()
     {
@@ -147,18 +150,24 @@ public class BotController : NetworkBehaviour, IDamageable
         {
             weaponTimer += Time.deltaTime;
                 if(weaponTimer > waitingTime){ 
-                weapon.Fire();
+                weapon.Fire(false);
                 weaponTimer = 0;
             }
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, bool fromPlayer, ulong shooterCliendId)
     {
+        if(!fromPlayer)
+        {
+            return;
+        }
+
         currentHealth.Value -= damage;
         
         if (currentHealth.Value <= 0)
         {
+            ScoreManager.Instance.AddPoint(shooterCliendId);
             Destroy(gameObject);
         }
     }

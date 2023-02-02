@@ -6,6 +6,8 @@ using Unity.Netcode;
 public class Bullet : NetworkBehaviour
 {
     public int damage;
+    public ulong shooterCliendId = 0;
+    public bool fromPlayer;
     void Start()
     {
         if (!IsOwner || !IsSpawned)
@@ -29,7 +31,7 @@ public class Bullet : NetworkBehaviour
 
         if(damageable != null)
         {
-            damageable.TakeDamage(damage);
+            damageable.TakeDamage(damage,fromPlayer, shooterCliendId);
         }
 
         gameObject.GetComponent<NetworkObject>().Despawn();
