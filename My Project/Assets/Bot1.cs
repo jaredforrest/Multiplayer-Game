@@ -58,6 +58,11 @@ public class Bot1 : MonoBehaviour, IDamageable
         Vector2 aimDirection = new Vector2(target.transform.position.x - weaponTransform.position.x, target.transform.position.y - weaponTransform.position.y);
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         rb.rotation = aimAngle;
+
+        if (Vector3.Distance(transform.position, target.transform.position) < 10f)
+        {
+            weapon.Fire();
+        }
     }
     private void OnDestroy()
     {
