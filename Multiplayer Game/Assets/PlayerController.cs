@@ -12,7 +12,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     
     public Rigidbody2D rb;
     public Weapon weapon;
-    public float fireRate;
+    public float fireRate = 0;
     private float nextShot;
 
     Vector2 moveDirection;

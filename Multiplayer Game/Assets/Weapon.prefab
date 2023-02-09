@@ -131,9 +131,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+  muzzleFlashSprite: {fileID: 0}
+  FramesToFlash: 0
   bulletPrefab: {fileID: 8509662687228457977, guid: bfe4ccf0c62cb72448a10495868c9bbb, type: 3}
   firePoint: {fileID: 3470638215894724089}
   fireForce: 20
+  fireRate: 1
 --- !u!114 &52378620909404461
 MonoBehaviour:
   m_ObjectHideFlags: 0
