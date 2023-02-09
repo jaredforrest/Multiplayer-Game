@@ -26,7 +26,10 @@ public class Bot1Spawner : NetworkBehaviour
     {
         timer += Time.deltaTime;
         if(timer > waitingTime){
-            Spawn();
+            if(GameObject.FindGameObjectsWithTag("Bot").Length < 7)
+            {
+                Spawn();
+            }
             timer = 0;
         }
     }

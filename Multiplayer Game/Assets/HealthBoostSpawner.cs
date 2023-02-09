@@ -19,7 +19,10 @@ public class HealthBoostSpawner : NetworkBehaviour
     {
         timer += Time.deltaTime;
         if(timer > waitingTime){
-            Spawn();
+            if(GameObject.FindGameObjectsWithTag("Health").Length < 7)
+            {
+                Spawn();
+            }
             timer = 0;
         }
     }
