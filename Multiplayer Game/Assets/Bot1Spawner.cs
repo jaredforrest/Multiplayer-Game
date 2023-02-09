@@ -12,7 +12,7 @@ public class Bot1Spawner : NetworkBehaviour
     public GameObject Bot;
 
     float timer = 0f;
-    float waitingTime = 120f;
+    float waitingTime = 15f;
 
     public float initialDelay;
 
@@ -26,7 +26,10 @@ public class Bot1Spawner : NetworkBehaviour
     {
         timer += Time.deltaTime;
         if(timer > waitingTime){
-            Spawn();
+            if(GameObject.FindGameObjectsWithTag("Bot").Length < 7)
+            {
+                Spawn();
+            }
             timer = 0;
         }
     }
@@ -36,7 +39,7 @@ public class Bot1Spawner : NetworkBehaviour
         int BotType = Random.Range(1, 6);
 
         GameObject _bot1 = Instantiate(Bot, transform.position, Quaternion.identity);
-        _bot1.GetComponent<BotController>().BotType.Value = BotType;
         _bot1.GetComponent<NetworkObject>().Spawn();
+        _bot1.GetComponent<BotController>().BotType = BotType;
     }
 }

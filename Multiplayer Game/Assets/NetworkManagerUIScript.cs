@@ -12,6 +12,7 @@ public class NetworkManagerUIScript : MonoBehaviour
     [SerializeField] private Button HostBtn;
     [SerializeField] private Button ClientBtn;
     [SerializeField] private GameObject Spawner;
+    [SerializeField] private GameObject HealtBoostSpawner;
     public GameObject multiCanvas;
 
     private void Awake() {
@@ -32,6 +33,7 @@ public class NetworkManagerUIScript : MonoBehaviour
                 spawner.transform.position = new Vector2(xCord[i], yCord[i]);
                 spawner.GetComponent<Bot1Spawner>().initialDelay = delay * i;
             }
+            Instantiate(HealtBoostSpawner);
             
         });
         ClientBtn.onClick.AddListener(() => {

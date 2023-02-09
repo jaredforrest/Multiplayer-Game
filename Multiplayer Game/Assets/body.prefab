@@ -141,7 +141,7 @@ MonoBehaviour:
   rectTransform: {fileID: 1136953157012702311}
   rb: {fileID: 6021514839218384510}
   weapon: {fileID: 1098555153542659411}
-  fireRate: 0.1
+  fireRate: 0.01
   maxHealth: 100
   initialHealth: 0
   healthBarCanvas: {fileID: 1136953157012702236}
@@ -441,6 +441,10 @@ PrefabInstance:
     - target: {fileID: 3470638216915899319, guid: 8700e8d42e1cd184fb6122c4d4233f26, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589770618307525152, guid: 8700e8d42e1cd184fb6122c4d4233f26, type: 3}
+      propertyPath: damage
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8589770618307525152, guid: 8700e8d42e1cd184fb6122c4d4233f26, type: 3}
       propertyPath: fireForce
