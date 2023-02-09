@@ -27,7 +27,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     HealthBar healthBar;
 
     public GameObject cameraPrefab;
-    public GameObject camera;
+    public new GameObject camera;
 
     public GameObject footprint;
     float footTime;
