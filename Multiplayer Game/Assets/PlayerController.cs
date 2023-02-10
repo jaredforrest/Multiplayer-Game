@@ -33,6 +33,9 @@ public class PlayerController : NetworkBehaviour, IDamageable
     float footTime;
 
     Animator m_Animator;
+
+    // JoyStick
+    public FixedJoystick Joystick;
  
 
     void Start()
@@ -70,6 +73,10 @@ public class PlayerController : NetworkBehaviour, IDamageable
         // Movement
         float moveX = Input.GetAxis("Horizontal");
         float moveY = Input.GetAxis("Vertical");
+
+        //JoyStick Movement
+        // moveX = Joystick.Horizontal;
+        // moveY = Joystick.Vertical;
 
         // Weapon
         if(Input.GetKey(KeyCode.Space) && Time.time>nextShot)
