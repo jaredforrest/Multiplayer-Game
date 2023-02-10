@@ -148,6 +148,7 @@ MonoBehaviour:
   cameraPrefab: {fileID: 7247469294847979705, guid: 4695e81bc83e8e340814bc0a1e0863aa, type: 3}
   camera: {fileID: 7247469294847979705, guid: 4695e81bc83e8e340814bc0a1e0863aa, type: 3}
   footprint: {fileID: 6740020633084241408, guid: 785114f447402d84dbe91a36181d9769, type: 3}
+  Joystick: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
 --- !u!50 &6021514839218384510
 Rigidbody2D:
   serializedVersion: 4

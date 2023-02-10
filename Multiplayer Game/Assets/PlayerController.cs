@@ -71,12 +71,12 @@ public class PlayerController : NetworkBehaviour, IDamageable
         if (!IsOwner) return;
         
         // Movement
-        float moveX = Input.GetAxis("Horizontal");
-        float moveY = Input.GetAxis("Vertical");
+        // float moveX = Input.GetAxis("Horizontal");
+        // float moveY = Input.GetAxis("Vertical");
 
         //JoyStick Movement
-        // moveX = Joystick.Horizontal;
-        // moveY = Joystick.Vertical;
+        float moveX = Input.GetAxis("Horizontal");
+        float moveY = Input.GetAxis("Vertical");
 
         // Weapon
         if(Input.GetKey(KeyCode.Space) && Time.time>nextShot)
