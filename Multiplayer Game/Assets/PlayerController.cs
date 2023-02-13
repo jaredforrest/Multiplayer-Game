@@ -35,13 +35,16 @@ public class PlayerController : NetworkBehaviour, IDamageable
     Animator m_Animator;
 
     // JoyStick
-    public FixedJoystick Joystick;
+    public GameObject joystickCanvas;
+    FixedJoystick joystick;
+    
  
 
     void Start()
     {
         if(IsOwner){
             camera = Instantiate(cameraPrefab);
+            joystick = Instantiate(joystickCanvas).transform.GetChild(0).GetComponent<FixedJoystick>();
         }
         
         healthBar = healthBarCanvas.transform.GetChild(0).GetComponent<HealthBar>();
@@ -67,16 +70,16 @@ public class PlayerController : NetworkBehaviour, IDamageable
             footTime = 0;
         }
 
-       healthBar.SetHealth(currentHealth.Value);
+       //healthBar.SetHealth(currentHealth.Value);
         if (!IsOwner) return;
         
         // Movement
-        float moveX = Input.GetAxis("Horizontal");
-        float moveY = Input.GetAxis("Vertical");
+        // float moveX = Input.GetAxis("Horizontal");
+        // float moveY = Input.GetAxis("Vertical");
 
         //JoyStick Movement
-        // float Joystick.moveX = Input.GetAxis("Horizontal");
-        // float Joystick.moveY = Input.GetAxis("Vertical");
+        float moveX = joystick.Horizontal;
+        float moveY = joystick.Vertical;
 
         // Weapon
         if(Input.GetKey(KeyCode.Space) && Time.time>nextShot)

@@ -32,10 +32,8 @@ public class MainMenu : NetworkBehaviour
         Button Map2Btn = selectMap.transform.GetChild(1).GetComponent<Button>();
 
         Map1Btn.onClick.AddListener(() => {
-            SceneManager.LoadScene("SampleScene",  LoadSceneMode.Additive);
             NetworkManager.Singleton.StartHost();
-            //NetworkManager.SceneManager.LoadScene("SampleScene",  LoadSceneMode.Additive);
-            Debug.Log(NetworkManager.Singleton.IsHost);
+            NetworkManager.SceneManager.LoadScene("SampleScene",  LoadSceneMode.Additive);
             selectMap.SetActive(false);
             StartSingleplayer();
         });
