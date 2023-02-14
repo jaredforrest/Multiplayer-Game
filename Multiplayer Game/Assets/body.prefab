@@ -149,7 +149,6 @@ MonoBehaviour:
   camera: {fileID: 7247469294847979705, guid: 4695e81bc83e8e340814bc0a1e0863aa, type: 3}
   footprint: {fileID: 6740020633084241408, guid: 785114f447402d84dbe91a36181d9769, type: 3}
   joystickCanvas: {fileID: 5315200854964034161, guid: 21e7cc23811e1c04b88c92ed0bb36430, type: 3}
-  joystick: {fileID: 0}
 --- !u!50 &6021514839218384510
 Rigidbody2D:
   serializedVersion: 4
@@ -164,7 +163,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 150
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
