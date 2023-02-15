@@ -128,7 +128,7 @@ public class BotController : NetworkBehaviour, IDamageable
 
         GameObject[] Players = GameObject.FindGameObjectsWithTag("Player");
         float player_distance = Mathf.Infinity;
-        Vector2 closestPosition = new Vector2(0, 0);
+        Vector3 closestPosition = new Vector3(0, 0, 0);
         foreach (GameObject player in Players)
         {
             float distance = Vector2.Distance(transform.position, player.transform.position);
@@ -139,8 +139,22 @@ public class BotController : NetworkBehaviour, IDamageable
             }
         }
 
-        agent.SetDestination(new Vector3(closestPosition.x, closestPosition.y, transform.position.z));
-        
+        // Move towards player
+        if(player_distance > 7f)
+        {
+            agent.SetDestination(new Vector3(closestPosition.x, closestPosition.y, transform.position.z));
+        }
+        // Move away from player
+        else if(player_distance < 3f)
+        {
+            Vector2 moveDir = transform.position + 5 * (transform.position - closestPosition).normalized;
+            agent.SetDestination(moveDir);
+        }
+        else
+        {
+            agent.SetDestination(new Vector3(transform.position.x, transform.position.y, transform.position.z));
+        }
+
         Vector2 aimDirection = new Vector2(closestPosition.x - weapon.transform.position.x, closestPosition.y - weapon.transform.position.y);
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         rb.rotation = aimAngle;

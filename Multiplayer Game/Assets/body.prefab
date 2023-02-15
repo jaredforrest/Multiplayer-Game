@@ -99,7 +99,6 @@ GameObject:
   - component: {fileID: 7624444034805381341}
   - component: {fileID: 4210768466687081203}
   - component: {fileID: 6292434347505380164}
-  - component: {fileID: 4878552243905476991}
   - component: {fileID: 8573272382440999285}
   m_Layer: 6
   m_Name: body
@@ -340,22 +339,6 @@ PolygonCollider2D:
       - {x: 0.155, y: -0.47}
       - {x: 0.035, y: -0.48}
       - {x: 0.044999998, y: -0.48999998}
---- !u!208 &4878552243905476991
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7966909792782526157}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 0
-  m_Extents: {x: 3, y: 1.08, z: 3}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!95 &8573272382440999285
 Animator:
   serializedVersion: 5
