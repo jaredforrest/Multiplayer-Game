@@ -20,6 +20,7 @@ using Unity.Netcode.Transports.UTP;
 public class GameLobbyScript : MonoBehaviour
 {
 
+    private bool gameStartCheck;
     private Lobby hostLobby;
     private Lobby joinedLobby;
     private float heartbeatTimer;
@@ -67,6 +68,8 @@ public class GameLobbyScript : MonoBehaviour
 
 
     private async void Start(){
+        gameStartCheck = false;
+
         //Signs user in anonymously to get an id
         await UnityServices.InitializeAsync();
 
@@ -178,8 +181,9 @@ public class GameLobbyScript : MonoBehaviour
             IAL_MaxPlayers.text = joinedLobby.MaxPlayers.ToString();
             IAL_LobbyCode.text = joinedLobby.LobbyCode;
 
-            if(joinedLobby.Data["JoinCode"].Value != ""){
+            if((joinedLobby.Data["JoinCode"].Value != "") && (gameStartCheck == false)){
                 JoinRelay(joinedLobby.Data["JoinCode"].Value);
+                gameStartCheck = true;
             }
         }
         
