@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.UI;
 
 public class PlayerController : NetworkBehaviour, IDamageable
 {
@@ -12,7 +13,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     
     public Rigidbody2D rb;
     public Weapon weapon;
-    public float fireRate;
+    public float fireRate = 0;
     private float nextShot;
 
     Vector2 moveDirection;
@@ -27,18 +28,31 @@ public class PlayerController : NetworkBehaviour, IDamageable
     HealthBar healthBar;
 
     public GameObject cameraPrefab;
-    public GameObject camera;
+    public new GameObject camera;
 
     public GameObject footprint;
     float footTime;
 
     Animator m_Animator;
- 
+
+    // JoyStick
+    public GameObject joystickCanvas;
+    FixedJoystick joystick;
+
+    [SerializeField] private GameObject fieldOfViewPrefab;
+    private FieldOfView fieldOfView;
+
 
     void Start()
     {
         if(IsOwner){
             camera = Instantiate(cameraPrefab);
+            GameObject _joystickCanvas = Instantiate(joystickCanvas);
+            joystick = _joystickCanvas.transform.GetChild(0).GetComponent<FixedJoystick>();
+            Button fireButton = _joystickCanvas.transform.GetChild(0).GetChild(1).GetComponent<Button>();
+            fireButton.onClick.AddListener(delegate{Fire();});
+
+            fieldOfView = Instantiate(fieldOfViewPrefab).GetComponent<FieldOfView>();
         }
         
         healthBar = healthBarCanvas.transform.GetChild(0).GetComponent<HealthBar>();
@@ -64,30 +78,26 @@ public class PlayerController : NetworkBehaviour, IDamageable
             footTime = 0;
         }
 
-       healthBar.SetHealth(currentHealth.Value);
+        healthBar.SetHealth(currentHealth.Value);
         if (!IsOwner) return;
         
         // Movement
-        float moveX = Input.GetAxis("Horizontal");
-        float moveY = Input.GetAxis("Vertical");
+        // float moveX = Input.GetAxis("Horizontal");
+        // float moveY = Input.GetAxis("Vertical");
+
+        //JoyStick Movement
+        float moveX = joystick.Horizontal;
+        float moveY = joystick.Vertical;
 
         // Weapon
         if(Input.GetKey(KeyCode.Space) && Time.time>nextShot)
         {
-            m_Animator.SetTrigger("shootTrig");
-            weapon.Fire(true);
-            nextShot = Time.time + fireRate;
+            Fire();
         }
-
-        //Debug.Log(OwnerClientId + ", Health : " + currentHealth);
 
         // Movement
         moveDirection = new Vector2(moveX, moveY).normalized;
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        
-        //var mousePos = Input.mousePosition;
-        //mousePos.z = 10; // select distance = 10 units from the camera
-        //mousePosition = GetComponent<Camera>().ScreenToWorldPoint(mousePos);
+        //mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
 
@@ -97,9 +107,14 @@ public class PlayerController : NetworkBehaviour, IDamageable
         rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
 
         // Weapon
-        Vector2 aimDirection = mousePosition - rb.position;
-        float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        rb.rotation = aimAngle;
+        //Vector2 aimDirection = mousePosition - rb.position;
+        if(moveDirection != Vector2.zero)
+        {
+            float aimAngle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+            rb.rotation = aimAngle;
+            fieldOfView.SetAimDirection(aimAngle + 45);
+            fieldOfView.SetOrigin(transform.position);
+        }
     }
 
     public void TakeDamage(int damage, bool fromPlayer, ulong shooterCliendId)
@@ -121,5 +136,11 @@ public class PlayerController : NetworkBehaviour, IDamageable
         {
             currentHealth.Value = maxHealth;
         }
+    }
+
+    public void Fire(){
+        m_Animator.SetTrigger("shootTrig");
+        weapon.Fire(true);
+        nextShot = Time.time + fireRate;
     }
 }

@@ -12,6 +12,7 @@ public class Weapon : NetworkBehaviour
     public Transform firePoint;
     public float fireForce;
     bool _isFlashing = false;
+    
 
     private void Start()
     {
