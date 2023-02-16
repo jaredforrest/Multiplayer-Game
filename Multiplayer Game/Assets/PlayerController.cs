@@ -26,7 +26,6 @@ public class PlayerController : NetworkBehaviour, IDamageable
     public GameObject healthBarCanvas;
     HealthBar healthBar;
 
-    public GameObject cameraPrefab;
     public new GameObject camera;
 
     public GameObject footprint;
@@ -38,7 +37,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
     void Start()
     {
         if(IsOwner){
-            camera = Instantiate(cameraPrefab);
+            camera.SetActive(true);
+            //camera = Instantiate(cameraPrefab);
         }
         
         healthBar = healthBarCanvas.transform.GetChild(0).GetComponent<HealthBar>();
