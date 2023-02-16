@@ -46,7 +46,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
     void Start()
     {
         if(IsOwner){
-            camera = Instantiate(cameraPrefab);
+            Debug.Log("Creating Camera");
+            //camera = Instantiate(cameraPrefab);
             GameObject _joystickCanvas = Instantiate(joystickCanvas);
             joystick = _joystickCanvas.transform.GetChild(0).GetComponent<FixedJoystick>();
             Button fireButton = _joystickCanvas.transform.GetChild(0).GetChild(1).GetComponent<Button>();
@@ -125,7 +126,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     private void LateUpdate() {
         rectTransform.rotation = Quaternion.Euler(0, 0,0);
         if (IsOwner){
-        camera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);        
+        //camera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);        
         }
     }
 

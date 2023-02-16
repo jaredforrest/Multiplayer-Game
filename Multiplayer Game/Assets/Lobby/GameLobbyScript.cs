@@ -425,7 +425,7 @@ public class GameLobbyScript : MonoBehaviour
 
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
             NetworkManager.Singleton.StartHost();
-            NetworkManager.Singleton.SceneManager.LoadScene("Game",  LoadSceneMode.Additive);
+            NetworkManager.Singleton.SceneManager.LoadScene("Game",  LoadSceneMode.Single);
         }catch (RelayServiceException e){
             Debug.Log(e);
         }
@@ -439,7 +439,6 @@ public class GameLobbyScript : MonoBehaviour
 
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
             NetworkManager.Singleton.StartClient();
-            NetworkManager.Singleton.SceneManager.LoadScene("Game",  LoadSceneMode.Additive);
         } catch (RelayServiceException e) {
             Debug.Log(e);
         }
