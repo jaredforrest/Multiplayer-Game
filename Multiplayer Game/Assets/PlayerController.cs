@@ -38,8 +38,10 @@ public class PlayerController : NetworkBehaviour, IDamageable
     // JoyStick
     public GameObject joystickCanvas;
     FixedJoystick joystick;
-    
- 
+
+    [SerializeField] private GameObject fieldOfViewPrefab;
+    private FieldOfView fieldOfView;
+
 
     void Start()
     {
@@ -49,6 +51,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
             joystick = _joystickCanvas.transform.GetChild(0).GetComponent<FixedJoystick>();
             Button fireButton = _joystickCanvas.transform.GetChild(0).GetChild(1).GetComponent<Button>();
             fireButton.onClick.AddListener(delegate{Fire();});
+
+            fieldOfView = Instantiate(fieldOfViewPrefab).GetComponent<FieldOfView>();
         }
         
         healthBar = healthBarCanvas.transform.GetChild(0).GetComponent<HealthBar>();
@@ -108,6 +112,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
         {
             float aimAngle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
             rb.rotation = aimAngle;
+            fieldOfView.SetAimDirection(aimAngle + 45);
+            fieldOfView.SetOrigin(transform.position);
         }
     }
 
