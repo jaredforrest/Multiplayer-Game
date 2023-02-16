@@ -23,8 +23,7 @@ public class MainMenu : NetworkBehaviour
         });
 
         MultiplayerBtn.onClick.AddListener(() => {
-            primaryMenu.SetActive(false);
-            selectMap.SetActive(true);
+            SceneManager.LoadScene("Lobby");
             gameType = "MultiPlayer";
         });
 
@@ -33,7 +32,7 @@ public class MainMenu : NetworkBehaviour
 
         Map1Btn.onClick.AddListener(() => {
             NetworkManager.Singleton.StartHost();
-            NetworkManager.SceneManager.LoadScene("SampleScene",  LoadSceneMode.Additive);
+            NetworkManager.SceneManager.LoadScene("Game",  LoadSceneMode.Additive);
             selectMap.SetActive(false);
             StartSingleplayer();
         });

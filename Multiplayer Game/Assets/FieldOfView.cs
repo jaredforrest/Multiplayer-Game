@@ -26,10 +26,12 @@ public class FieldOfView : MonoBehaviour
         float viewDistance = 20f;
 
         Vector3[] vertices = new Vector3[rayCount + 1 + 1];
+        Color[] colors = new Color[vertices.Length];
         Vector2[] uv = new Vector2[vertices.Length];
         int[] triangles = new int[rayCount * 3];
 
         vertices[0] = origin;
+        colors[0] = new Color(0f, 0f, 0f, 1f);
 
         int vertexIndex = 1;
         int triangleIndex = 0;
@@ -44,6 +46,7 @@ public class FieldOfView : MonoBehaviour
                 vertex = raycastHit2D.point;
             }
             vertices[vertexIndex] = vertex;
+            colors[vertexIndex] = new Color(0f, 0f, 0f, 1f);
 
             if (i > 0) {
                 triangles[triangleIndex + 0] = 0;
@@ -58,6 +61,7 @@ public class FieldOfView : MonoBehaviour
         }
 
         mesh.vertices = vertices;
+        mesh.colors = colors;
         mesh.uv = uv;
         mesh.triangles = triangles;
 
