@@ -5,32 +5,20 @@ using Unity.Netcode;
 
 public class HealthBoost : NetworkBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
+    private void OnTriggerEnter2D(Collider2D other) {
         if (!IsOwner || !IsSpawned)
         {
             return;
         }
 
-        PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+        if(other.CompareTag("Player")){
+            AddHealth(other);
 
-        if(player != null)
-        {
-            player.addHealth(15);
-            gameObject.GetComponent<NetworkObject>().Despawn();
         }
+    }
 
+    private void AddHealth(Collider2D player) {
+        player.gameObject.GetComponent<PlayerController>().addHealth(15);
+        gameObject.GetComponent<NetworkObject>().Despawn();
     }
 }
