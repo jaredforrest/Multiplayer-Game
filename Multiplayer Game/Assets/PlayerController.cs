@@ -83,7 +83,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
         // Movement
         moveDirection = new Vector2(moveX, moveY).normalized;
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition = camera.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
         
         //var mousePos = Input.mousePosition;
         //mousePos.z = 10; // select distance = 10 units from the camera
