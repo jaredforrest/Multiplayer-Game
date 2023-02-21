@@ -15,6 +15,8 @@ public class GameManager : NetworkBehaviour
     public GameObject HealtBoostSpawner;
     public GameObject BotSpawner;
 
+    public FieldOfView fieldOfView;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,5 +48,6 @@ public class GameManager : NetworkBehaviour
         }
         GameObject _selectedPlayer = Instantiate(selectedPlayer);
         _selectedPlayer.GetComponent<NetworkObject>().SpawnWithOwnership(serverRpcParams.Receive.SenderClientId);
+        _selectedPlayer.GetComponent<PlayerController>().fieldOfView = fieldOfView;
     }
 }
