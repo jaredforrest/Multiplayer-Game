@@ -26,8 +26,6 @@ public class PlayerController : NetworkBehaviour, IDamageable
     public GameObject healthBarCanvas;
     HealthBar healthBar;
 
-    public new GameObject camera;
-
     public GameObject footprint;
     float footTime;
 
@@ -36,11 +34,6 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     void Start()
     {
-        if(IsOwner){
-            camera.SetActive(true);
-            //camera = Instantiate(cameraPrefab);
-        }
-        
         healthBar = healthBarCanvas.transform.GetChild(0).GetComponent<HealthBar>();
 
         // Health
@@ -83,7 +76,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
         // Movement
         moveDirection = new Vector2(moveX, moveY).normalized;
-        mousePosition = camera.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
         //var mousePos = Input.mousePosition;
         //mousePos.z = 10; // select distance = 10 units from the camera
@@ -110,7 +103,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     private void LateUpdate() {
         rectTransform.rotation = Quaternion.Euler(0, 0,0);
         if (IsOwner){
-        camera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);        
+        Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);        
         }
     }
 

@@ -429,7 +429,7 @@ public class GameLobbyScript : MonoBehaviour
 
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
             NetworkManager.Singleton.StartHost();
-            NetworkManager.Singleton.SceneManager.LoadScene("Game",  LoadSceneMode.Single);
+            NetworkManager.Singleton.SceneManager.LoadScene("MainGame",  LoadSceneMode.Single);
         }catch (RelayServiceException e){
             Debug.Log(e);
         }
