@@ -26,7 +26,7 @@ public class GameManager : NetworkBehaviour
             break;
         }
         SpawnPlayerServerRpc();
-        myPlayer.GetComponent<PlayerController>().fieldOfView = fieldOfView;
+        //myPlayer.GetComponent<PlayerController>().fieldOfView = fieldOfView;
 
         if(IsHost){
             Instantiate(HealtBoostSpawner);

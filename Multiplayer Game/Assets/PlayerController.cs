@@ -46,6 +46,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
         nextShot = Time.time;
 
         m_Animator = gameObject.GetComponent<Animator>();
+
+        fieldOfView = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
     }
 
 
