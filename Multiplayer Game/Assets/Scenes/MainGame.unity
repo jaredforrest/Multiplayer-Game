@@ -340,7 +340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameMap: basic
-  basicMap: {fileID: 4527143093993027373, guid: f57d6b439be38b243886c6458f543092, type: 3}
+  basicMap: {fileID: 5181555044068830841, guid: fe4fe6ee86093b647a46d9b3ce028159, type: 3}
   playerType: basic
   basicPlayer: {fileID: 7966909792782526157, guid: 878f7823d13144a45870e3d7f5b53267, type: 3}
   HealtBoostSpawner: {fileID: 5966366653685515639, guid: 1b1d9aea685db634e8ae7a17bb3e7e21, type: 3}
