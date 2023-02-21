@@ -275,6 +275,8 @@ MonoBehaviour:
   basicMap: {fileID: 4527143093993027373, guid: f57d6b439be38b243886c6458f543092, type: 3}
   playerType: basic
   basicPlayer: {fileID: 7966909792782526157, guid: 878f7823d13144a45870e3d7f5b53267, type: 3}
+  HealtBoostSpawner: {fileID: 5966366653685515639, guid: 1b1d9aea685db634e8ae7a17bb3e7e21, type: 3}
+  BotSpawner: {fileID: 5034611177237747331, guid: 106743fd10cab5449b2ef7df6f0a6ff4, type: 3}
 --- !u!4 &1984932756
 Transform:
   m_ObjectHideFlags: 0

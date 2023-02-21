@@ -12,15 +12,22 @@ public class GameManager : NetworkBehaviour
     public GameObject basicPlayer;
     private GameObject selectedPlayer;
 
+    public GameObject HealtBoostSpawner;
+    public GameObject BotSpawner;
+
     // Start is called before the first frame update
     void Start()
     {
-            switch(gameMap) {
-                case "basic": Instantiate(basicMap); 
-                break;
-            }
-            SpawnPlayerServerRpc();
+        switch(gameMap) {
+            case "basic": Instantiate(basicMap); 
+            break;
+        }
+        SpawnPlayerServerRpc();
 
+        if(IsHost){
+            Instantiate(HealtBoostSpawner);
+            Instantiate(BotSpawner);
+        }
     }
 
     // Update is called once per frame
