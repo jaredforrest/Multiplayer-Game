@@ -95,8 +95,10 @@ public class PlayerController : NetworkBehaviour, IDamageable
         Vector2 aimDirection = mousePosition - rb.position;
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         rb.rotation = aimAngle;
-        fieldOfView.SetAimDirection(aimAngle + 45);
-        fieldOfView.SetOrigin(transform.position);
+        if(IsOwner){
+            fieldOfView.SetAimDirection(aimAngle + 45);
+            fieldOfView.SetOrigin(transform.position);
+        }
     }
 
     public void TakeDamage(int damage, bool fromPlayer, ulong shooterCliendId)
