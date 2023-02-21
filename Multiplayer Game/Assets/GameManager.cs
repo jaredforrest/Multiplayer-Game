@@ -15,7 +15,6 @@ public class GameManager : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-            NetworkManager.Singleton.StartHost();
             switch(gameMap) {
                 case "basic": Instantiate(basicMap); 
                 break;
