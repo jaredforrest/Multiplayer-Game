@@ -39,8 +39,11 @@ public class Bot1Spawner : NetworkBehaviour
 
     void Spawn()
     {
+        int BotType = Random.Range(1, 6);
+
         GameObject _bot1 = Instantiate(Bot, RandomPoint(30.0f), Quaternion.identity);
         _bot1.GetComponent<NetworkObject>().Spawn();
+        _bot1.GetComponent<BotController>().BotType = BotType;
     }
 
     Vector2 RandomPoint(float range)
