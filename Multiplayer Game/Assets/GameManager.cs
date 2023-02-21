@@ -11,6 +11,7 @@ public class GameManager : NetworkBehaviour
     public string playerType = "basic";
     public GameObject basicPlayer;
     private GameObject selectedPlayer;
+    private GameObject myPlayer;
 
     public GameObject HealtBoostSpawner;
     public GameObject BotSpawner;
@@ -25,6 +26,7 @@ public class GameManager : NetworkBehaviour
             break;
         }
         SpawnPlayerServerRpc();
+        myPlayer.GetComponent<PlayerController>().fieldOfView = fieldOfView;
 
         if(IsHost){
             Instantiate(HealtBoostSpawner);
@@ -46,8 +48,7 @@ public class GameManager : NetworkBehaviour
             break;
 
         }
-        GameObject _selectedPlayer = Instantiate(selectedPlayer);
-        _selectedPlayer.GetComponent<NetworkObject>().SpawnWithOwnership(serverRpcParams.Receive.SenderClientId);
-        _selectedPlayer.GetComponent<PlayerController>().fieldOfView = fieldOfView;
+        myPlayer = Instantiate(selectedPlayer);
+        myPlayer.GetComponent<NetworkObject>().SpawnWithOwnership(serverRpcParams.Receive.SenderClientId);
     }
 }
