@@ -75,7 +75,7 @@ public class BotController : NetworkBehaviour, IDamageable
                 agent.speed = 5;
                 waitingTime = 1f;
                 weapon.damage = 10;
-                weapon.fireForce = 20f;
+                weapon.fireForce = 30f;
                 spriteRenderer.sprite = rifleSprite;
                 break;
             //Sniper
@@ -140,14 +140,14 @@ public class BotController : NetworkBehaviour, IDamageable
         }
 
         // Move towards player
-        if(player_distance > 7f)
+        if(player_distance > 6f)
         {
             agent.SetDestination(new Vector3(closestPosition.x, closestPosition.y, transform.position.z));
         }
         // Move away from player
-        else if(player_distance < 3f)
+        else if(player_distance < 4f)
         {
-            Vector2 moveDir = transform.position + 5 * (transform.position - closestPosition).normalized;
+            Vector2 moveDir = transform.position + 5f * (transform.position - closestPosition).normalized;
             agent.SetDestination(moveDir);
         }
         else

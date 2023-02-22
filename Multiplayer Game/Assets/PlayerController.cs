@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-using UnityEngine.UI;
 
 public class PlayerController : NetworkBehaviour, IDamageable
 {
@@ -27,34 +26,16 @@ public class PlayerController : NetworkBehaviour, IDamageable
     public GameObject healthBarCanvas;
     HealthBar healthBar;
 
-    public GameObject cameraPrefab;
-    public new GameObject camera;
-
     public GameObject footprint;
     float footTime;
 
     Animator m_Animator;
 
-    // JoyStick
-    public GameObject joystickCanvas;
-    FixedJoystick joystick;
-
-    [SerializeField] private GameObject fieldOfViewPrefab;
-    private FieldOfView fieldOfView;
-
+    public FieldOfView fieldOfView;
+ 
 
     void Start()
     {
-        if(IsOwner){
-            camera = Instantiate(cameraPrefab);
-            GameObject _joystickCanvas = Instantiate(joystickCanvas);
-            joystick = _joystickCanvas.transform.GetChild(0).GetComponent<FixedJoystick>();
-            Button fireButton = _joystickCanvas.transform.GetChild(0).GetChild(1).GetComponent<Button>();
-            fireButton.onClick.AddListener(delegate{Fire();});
-
-            fieldOfView = Instantiate(fieldOfViewPrefab).GetComponent<FieldOfView>();
-        }
-        
         healthBar = healthBarCanvas.transform.GetChild(0).GetComponent<HealthBar>();
 
         // Health
@@ -65,6 +46,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
         nextShot = Time.time;
 
         m_Animator = gameObject.GetComponent<Animator>();
+
+        fieldOfView = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
     }
 
 
@@ -78,26 +61,30 @@ public class PlayerController : NetworkBehaviour, IDamageable
             footTime = 0;
         }
 
-        healthBar.SetHealth(currentHealth.Value);
+       healthBar.SetHealth(currentHealth.Value);
         if (!IsOwner) return;
         
         // Movement
-        // float moveX = Input.GetAxis("Horizontal");
-        // float moveY = Input.GetAxis("Vertical");
-
-        //JoyStick Movement
-        float moveX = joystick.Horizontal;
-        float moveY = joystick.Vertical;
+        float moveX = Input.GetAxis("Horizontal");
+        float moveY = Input.GetAxis("Vertical");
 
         // Weapon
         if(Input.GetKey(KeyCode.Space) && Time.time>nextShot)
         {
-            Fire();
+            m_Animator.SetTrigger("shootTrig");
+            weapon.Fire(true);
+            nextShot = Time.time + fireRate;
         }
+
+        //Debug.Log(OwnerClientId + ", Health : " + currentHealth);
 
         // Movement
         moveDirection = new Vector2(moveX, moveY).normalized;
-        //mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        
+        //var mousePos = Input.mousePosition;
+        //mousePos.z = 10; // select distance = 10 units from the camera
+        //mousePosition = GetComponent<Camera>().ScreenToWorldPoint(mousePos);
     }
 
 
@@ -107,11 +94,10 @@ public class PlayerController : NetworkBehaviour, IDamageable
         rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
 
         // Weapon
-        //Vector2 aimDirection = mousePosition - rb.position;
-        if(moveDirection != Vector2.zero)
-        {
-            float aimAngle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
-            rb.rotation = aimAngle;
+        Vector2 aimDirection = mousePosition - rb.position;
+        float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+        rb.rotation = aimAngle;
+        if(IsOwner){
             fieldOfView.SetAimDirection(aimAngle + 45);
             fieldOfView.SetOrigin(transform.position);
         }
@@ -125,7 +111,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
     private void LateUpdate() {
         rectTransform.rotation = Quaternion.Euler(0, 0,0);
         if (IsOwner){
-        camera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);        
+        Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);        
         }
     }
 
@@ -136,11 +122,5 @@ public class PlayerController : NetworkBehaviour, IDamageable
         {
             currentHealth.Value = maxHealth;
         }
-    }
-
-    public void Fire(){
-        m_Animator.SetTrigger("shootTrig");
-        weapon.Fire(true);
-        nextShot = Time.time + fireRate;
     }
 }
