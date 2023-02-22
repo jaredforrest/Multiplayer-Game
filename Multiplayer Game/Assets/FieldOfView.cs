@@ -2,11 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-struct LightDatum {
-    public float illumination;
-    public float length;
-}
-
 public class FieldOfView : MonoBehaviour
 {
     private Mesh mesh;
@@ -25,13 +20,12 @@ public class FieldOfView : MonoBehaviour
     }
 
     private void LateUpdate() {
-        int rayCount = 500;
+        int rayCount = 100;
         float angle = startingAngle;
         float angleIncrease = fov / rayCount;
         float viewDistance = 20f;
 
         Vector3[] vertices = new Vector3[2 * rayCount + 1];
-        LightDatum[] lightData = new LightDatum[rayCount + 1];
         Color[] colors = new Color[vertices.Length];
         //Vector2[] uv = new Vector2[vertices.Length];
         int[] triangles = new int[rayCount * 3];
@@ -48,34 +42,23 @@ public class FieldOfView : MonoBehaviour
             if (raycastHit2D.collider == null){
                 // No hit
                 vertex = origin + AngleToVector(angle) * viewDistance;
-                lightData[i].length = viewDistance;
             } else {
                 // Hit object
                 vertex = raycastHit2D.point;
-                lightData[i].length = raycastHit2D.distance;
             }
             vertices[i] = vertex;
+            colors[i] = GetColor(i, rayCount);
 
             if (i > 0) {
-                if(Vector3.Distance(vertices[i], vertices[i-1]) > 0.5f && lightData[i].length > lightData[i-1].length){
-                    lightData[i].illumination = 0f;
-                } else {
-                    lightData[i].illumination = Mathf.Min(lightData[i-1].illumination + 0.02f, 1f);
-                }
-                colors[i] = GetColor2(lightData[i].illumination);
-
                 Vector3 vertexOrigin = origin;
                 vertices[rayCount + i] = vertexOrigin;
-                colors[rayCount + i] = GetColor2(lightData[i].illumination);
+                colors[rayCount + i] = GetColor(i, rayCount);
 
                 triangles[triangleIndex + 0] = rayCount + i;
                 triangles[triangleIndex + 1] = i - 1;
                 triangles[triangleIndex + 2] = i;
 
                 triangleIndex += 3;
-            } else {
-                lightData[i].illumination = 0f;
-                colors[i] = GetColor2(0f);
             }
             
             vertexIndex ++;
@@ -112,15 +95,6 @@ public class FieldOfView : MonoBehaviour
     Color GetColor(int i, int rayCount){
         float scale = 0.5f;
         float a = Mathf.Pow(Mathf.Abs(1f - (float) (2 * i) / rayCount), 5f);
-        float neg = scale - scale * a;
-        float alpha = 0.31f + a * 0.4f;
-        return new Color(neg, neg, 0.8f * neg, alpha);
-    }
-
-    Color GetColor2(float illumination){
-       // Debug.Log(illumination);
-        float scale = 0.5f;
-        float a = 1f - illumination;//Mathf.Pow(Mathf.Abs(1f - (float) (2 * i) / rayCount), 5f);
         float neg = scale - scale * a;
         float alpha = 0.31f + a * 0.4f;
         return new Color(neg, neg, 0.8f * neg, alpha);
