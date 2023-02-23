@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
-public class Timer : MonoBehaviour
+using Unity.Netcode;
+public class Timer : NetworkBehaviour
 {
-    public float TimeLeft;
+
+    private NetworkVariable<float> TimeLeft = new NetworkVariable<float>(100);
+    public float TotalTime;
     public bool TimerOn = false;
 
     public TextMeshProUGUI TimerText;
@@ -14,23 +16,32 @@ public class Timer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        TimerOn = true;
+        if(IsHost){
+            TimeLeft.Value = TotalTime;
+            TimerOn = true;
+        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (TimerOn){
-            if (TimeLeft>0){
-                TimeLeft -= Time.deltaTime;
-            }
-            else{
-                Debug.Log("Timer Finished");
-                TimeLeft = 0;
-                TimerOn = false;
+        if (IsHost){
+            if (TimerOn){
+                if (TimeLeft.Value>0){
+                    TimeLeft.Value -= Time.deltaTime;
+                }
+                else{
+                    Debug.Log("Timer Finished");
+                    TimeLeft.Value = 0;
+                    TimerOn = false;
+                }
             }
         }
+        updateTimer(TimeLeft.Value);
+        
     }
+
     void updateTimer(float currentTime){
         currentTime += 1;
 
