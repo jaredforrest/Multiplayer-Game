@@ -37,4 +37,8 @@ public class Bullet : NetworkBehaviour
 
         gameObject.GetComponent<NetworkObject>().Despawn();
     }
+
+    void FixedUpdate() {
+        GetComponent<Rigidbody2D>().velocity = new Vector3(1.0f,1.0f,1.0f);
+    }
 }

@@ -181,6 +181,12 @@ public class GameLobbyScript : MonoBehaviour
             IAL_MaxPlayers.text = joinedLobby.MaxPlayers.ToString();
             IAL_LobbyCode.text = joinedLobby.LobbyCode;
 
+            if (hostLobby != null){
+                IAL_StartBtn.gameObject.SetActive(true);
+            }else{
+                IAL_StartBtn.gameObject.SetActive(false);
+            }
+
             if((joinedLobby.Data["JoinCode"].Value != "") && (gameStartCheck == false)){
                 JoinRelay(joinedLobby.Data["JoinCode"].Value);
                 gameStartCheck = true;
