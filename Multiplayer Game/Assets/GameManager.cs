@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using Unity.Services.Lobbies.Models;
+
 
 public class GameManager : NetworkBehaviour
 {
@@ -21,6 +23,9 @@ public class GameManager : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Lobby lobby = GameObject.Find("DataForMulti").GetComponent<DataContainer>().lobby;
+        Debug.Log(lobby.Name);
+        Debug.Log(lobby.Data["GameMap"].Value);
         switch(gameMap) {
             case "basic": Instantiate(basicMap); 
             break;

@@ -65,6 +65,7 @@ public class GameLobbyScript : MonoBehaviour
     public Transform LobbiesContentContainer;
     public GameObject LobbiesContentPrefab;
 
+    public DataContainer Datacontainer;
 
 
     private async void Start(){
@@ -431,11 +432,14 @@ public class GameLobbyScript : MonoBehaviour
 
             updateJoinCode(joinCode);
 
+            Datacontainer.lobby = hostLobby;
+
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
 
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
             NetworkManager.Singleton.StartHost();
             NetworkManager.Singleton.SceneManager.LoadScene("MainGame",  LoadSceneMode.Single);
+    
         }catch (RelayServiceException e){
             Debug.Log(e);
         }
