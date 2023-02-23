@@ -50,8 +50,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
         fieldOfView = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
 
         if(IsOwner){
-            gameObject.layer = LayerMask.NameToLayer("Black");
-            healthBarCanvas.layer = LayerMask.NameToLayer("Black");
+            gameObject.layer = LayerMask.NameToLayer("Top");
+            healthBarCanvas.layer = LayerMask.NameToLayer("Top");
         }
     }
 
