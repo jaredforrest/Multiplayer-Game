@@ -104,6 +104,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
         currentHealth.Value -= damage;
         if (currentHealth.Value <= 0)
         {
+            ScoreManager.Instance.AddPoint(shooterCliendId);
             currentHealth.Value = maxHealth;
             transform.position = new Vector2(0f, 0f);
         }
