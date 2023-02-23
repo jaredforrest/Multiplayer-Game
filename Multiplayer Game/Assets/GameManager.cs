@@ -23,26 +23,26 @@ public class GameManager : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Lobby lobby = GameObject.Find("DataForMulti").GetComponent<DataContainer>().lobby;
-        Debug.Log(lobby.Name);
-        Debug.Log(lobby.Data["GameMap"].Value);
-        switch(gameMap) {
-            case "basic": Instantiate(basicMap); 
-            break;
-        }
         SpawnPlayerServerRpc();
 
         if(IsHost){
             Instantiate(HealtBoostSpawner);
             Instantiate(BotSpawner);
+
+            Lobby lobby = GameObject.Find("DataForMulti").GetComponent<DataContainer>().lobby;
+            
+            Debug.Log(lobby.Name);
+            Debug.Log(lobby.Data["GameMap"].Value);
+
+            switch(lobby.Name) {
+                case "test_map_name":
+                    map = Instantiate(basicMap); 
+                    break;
+            }
+            map.GetComponent<NetworkObject>().Spawn();
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     [ServerRpc(RequireOwnership = false)]
     public void SpawnPlayerServerRpc(ServerRpcParams serverRpcParams = default)
