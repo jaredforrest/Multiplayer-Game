@@ -13,9 +13,13 @@ public class MainMenu : NetworkBehaviour
     public GameObject Spawner;
     public GameObject HealtBoostSpawner;
 
+    public Button SingleplayerBtn;
+    public Button MultiplayerBtn;
+
+    public Button Map1Btn;
+    public Button Map2Btn;
+
     private void Awake() {
-        Button SingleplayerBtn = primaryMenu.transform.GetChild(0).GetComponent<Button>();
-        Button MultiplayerBtn = primaryMenu.transform.GetChild(1).GetComponent<Button>();
         SingleplayerBtn.onClick.AddListener(() => {
             primaryMenu.SetActive(false);
             selectMap.SetActive(true);
@@ -26,9 +30,6 @@ public class MainMenu : NetworkBehaviour
             SceneManager.LoadScene("Lobby");
             gameType = "MultiPlayer";
         });
-
-        Button Map1Btn = selectMap.transform.GetChild(0).GetComponent<Button>();
-        Button Map2Btn = selectMap.transform.GetChild(1).GetComponent<Button>();
 
         Map1Btn.onClick.AddListener(() => {
             NetworkManager.Singleton.StartHost();
