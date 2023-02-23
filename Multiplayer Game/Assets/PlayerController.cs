@@ -117,7 +117,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     private void LateUpdate() {
         if(IsOwner){
-            fieldOfView.SetAimDirection(rb.rotation + 45);
+            fieldOfView.SetAimDirection(rb.rotation + 23);
             fieldOfView.SetOrigin(transform.position);
         }
         rectTransform.rotation = Quaternion.Euler(0, 0,0);
