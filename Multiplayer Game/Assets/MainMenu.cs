@@ -4,7 +4,6 @@ using UnityEngine;
 using Button = UnityEngine.UI.Button;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
-using Unity.Netcode.Transports.UTP;
 
 public class MainMenu : NetworkBehaviour
 {
@@ -32,10 +31,10 @@ public class MainMenu : NetworkBehaviour
         Button Map2Btn = selectMap.transform.GetChild(1).GetComponent<Button>();
 
         Map1Btn.onClick.AddListener(() => {
-            SceneManager.LoadScene("Singleplayer");
-            Destroy(NetworkManager);
-            NetworkManager.Shutdown();
-
+            NetworkManager.Singleton.StartHost();
+            NetworkManager.SceneManager.LoadScene("Game",  LoadSceneMode.Additive);
+            selectMap.SetActive(false);
+            StartSingleplayer();
         });
 
     }
