@@ -32,8 +32,7 @@ public class GameManager : NetworkBehaviour
 
             Lobby lobby = GameObject.Find("DataForMulti").GetComponent<DataContainer>().lobby;
 
-            Debug.Log(lobby.Name);
-            Debug.Log(lobby.Data["GameMap"].Value);
+            BotSpawner.GetComponent<Bot1Spawner>().lobbySize = lobby.MaxPlayers;
 
             switch(lobby.Data["GameMap"].Value) {
                 case "test_map_name":
