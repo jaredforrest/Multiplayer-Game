@@ -8,6 +8,7 @@ using Unity.Services.Lobbies.Models;
 public class GameManager : NetworkBehaviour
 {
     public string gameMap = "basic";
+    private GameObject map;
     public GameObject basicMap;
 
     public string playerType = "basic";
@@ -30,7 +31,7 @@ public class GameManager : NetworkBehaviour
             Instantiate(BotSpawner);
 
             Lobby lobby = GameObject.Find("DataForMulti").GetComponent<DataContainer>().lobby;
-            
+
             Debug.Log(lobby.Name);
             Debug.Log(lobby.Data["GameMap"].Value);
 
