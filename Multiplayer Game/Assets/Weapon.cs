@@ -37,7 +37,7 @@ public class Weapon : NetworkBehaviour
         _bullet.damage = damage;
         _bullet.fromPlayer = fromPlayer;
         _bullet.shooterCliendId = serverRpcParams.Receive.SenderClientId;
-        bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.up * fireForce, ForceMode2D.Impulse);
+        bullet.GetComponent<Rigidbody2D>().velocity = transform.forward * 100;
         bullet.GetComponent<NetworkObject>().Spawn();
     }
 

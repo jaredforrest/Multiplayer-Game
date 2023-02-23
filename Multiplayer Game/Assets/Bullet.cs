@@ -7,6 +7,7 @@ public class Bullet : NetworkBehaviour
 {
     public int damage;
     public ulong shooterCliendId = 0;
+    public int speed = 10;
     public bool fromPlayer;
     void Start()
     {
