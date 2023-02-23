@@ -40,8 +40,5 @@ public class Bullet : NetworkBehaviour
 
     void FixedUpdate() {
         GetComponent<Rigidbody2D>().velocity = transform.up * 10;
-        Debug.Log("velogity");
-        Debug.Log(GetComponent<Rigidbody2D>().velocity);
-        Debug.Log(transform.forward);
     }
 }

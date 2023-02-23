@@ -35,7 +35,7 @@ public class GameManager : NetworkBehaviour
             Debug.Log(lobby.Name);
             Debug.Log(lobby.Data["GameMap"].Value);
 
-            switch(lobby.Name) {
+            switch(lobby.Data["GameMap"].Value) {
                 case "test_map_name":
                     map = Instantiate(basicMap); 
                     break;
