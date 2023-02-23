@@ -48,6 +48,11 @@ public class PlayerController : NetworkBehaviour, IDamageable
         m_Animator = gameObject.GetComponent<Animator>();
 
         fieldOfView = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
+
+        if(IsOwner){
+            gameObject.layer = LayerMask.NameToLayer("Default");
+            healthBarCanvas.layer = LayerMask.NameToLayer("Default");
+        }
     }
 
 
