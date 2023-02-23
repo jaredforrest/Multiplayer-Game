@@ -97,18 +97,23 @@ public class PlayerController : NetworkBehaviour, IDamageable
         Vector2 aimDirection = mousePosition - rb.position;
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         rb.rotation = aimAngle;
-        if(IsOwner){
-            fieldOfView.SetAimDirection(aimAngle + 45);
-            fieldOfView.SetOrigin(transform.position);
-        }
     }
 
     public void TakeDamage(int damage, bool fromPlayer, ulong shooterCliendId)
     {
         currentHealth.Value -= damage;
+        if (currentHealth.Value <= 0)
+        {
+            currentHealth.Value = maxHealth;
+            transform.position = new Vector2(0f, 0f);
+        }
     }
 
     private void LateUpdate() {
+        if(IsOwner){
+            fieldOfView.SetAimDirection(rb.rotation + 45);
+            fieldOfView.SetOrigin(transform.position);
+        }
         rectTransform.rotation = Quaternion.Euler(0, 0,0);
         if (IsOwner){
         Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);        
