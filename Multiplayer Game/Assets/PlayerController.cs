@@ -90,6 +90,10 @@ public class PlayerController : NetworkBehaviour, IDamageable
         //var mousePos = Input.mousePosition;
         //mousePos.z = 10; // select distance = 10 units from the camera
         //mousePosition = GetComponent<Camera>().ScreenToWorldPoint(mousePos);
+        if(IsOwner){
+            fieldOfView.SetAimDirection(rb.rotation + 30);
+            fieldOfView.SetOrigin(weapon.transform.position);
+        }
     }
 
 
@@ -116,10 +120,6 @@ public class PlayerController : NetworkBehaviour, IDamageable
     }
 
     private void LateUpdate() {
-        if(IsOwner){
-            fieldOfView.SetAimDirection(rb.rotation + 30);
-            fieldOfView.SetOrigin(weapon.transform.position);
-        }
         rectTransform.rotation = Quaternion.Euler(0, 0,0);
         if (IsOwner){
         Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);        
