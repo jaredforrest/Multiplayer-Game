@@ -426,6 +426,14 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8601278000325408795, guid: 2bd7dac4bfd81a24dbd87dfae285951b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601278000325408795, guid: 2bd7dac4bfd81a24dbd87dfae285951b, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -140666547
+      objectReference: {fileID: 0}
     - target: {fileID: 8601278000325408799, guid: 2bd7dac4bfd81a24dbd87dfae285951b, type: 3}
       propertyPath: m_Name
       value: Health
