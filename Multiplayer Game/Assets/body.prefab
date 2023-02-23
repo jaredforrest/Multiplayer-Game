@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2981250323630932030}
   - component: {fileID: 8784516024712718456}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MuzzleFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 4210768466687081203}
   - component: {fileID: 8573272382440999285}
   - component: {fileID: 6685302085403849946}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: body
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -318,7 +318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3470638215894724090, guid: 8700e8d42e1cd184fb6122c4d4233f26, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3470638216915899272, guid: 8700e8d42e1cd184fb6122c4d4233f26, type: 3}
       propertyPath: m_Name
@@ -326,7 +326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3470638216915899272, guid: 8700e8d42e1cd184fb6122c4d4233f26, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3470638216915899319, guid: 8700e8d42e1cd184fb6122c4d4233f26, type: 3}
       propertyPath: m_RootOrder
@@ -430,6 +430,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Health
       objectReference: {fileID: 0}
+    - target: {fileID: 8601278000325408799, guid: 2bd7dac4bfd81a24dbd87dfae285951b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8601278000325408868, guid: 2bd7dac4bfd81a24dbd87dfae285951b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -514,6 +518,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8601278000413068333, guid: 2bd7dac4bfd81a24dbd87dfae285951b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8601278000413068335, guid: 2bd7dac4bfd81a24dbd87dfae285951b, type: 3}
       propertyPath: gradient.atime0
       value: 0
@@ -546,6 +554,14 @@ PrefabInstance:
       propertyPath: gradient.key1.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8601278000468814789, guid: 2bd7dac4bfd81a24dbd87dfae285951b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601278001337430045, guid: 2bd7dac4bfd81a24dbd87dfae285951b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8601278001337430046, guid: 2bd7dac4bfd81a24dbd87dfae285951b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -565,6 +581,10 @@ PrefabInstance:
     - target: {fileID: 8601278001337430047, guid: 2bd7dac4bfd81a24dbd87dfae285951b, type: 3}
       propertyPath: m_Color.r
       value: 0.4811321
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601278002157674334, guid: 2bd7dac4bfd81a24dbd87dfae285951b, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8877247845521068767, guid: 2bd7dac4bfd81a24dbd87dfae285951b, type: 3}
