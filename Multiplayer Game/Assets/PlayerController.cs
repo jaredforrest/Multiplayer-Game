@@ -50,8 +50,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
         fieldOfView = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
 
         if(IsOwner){
-            gameObject.layer = LayerMask.NameToLayer("Default");
-            healthBarCanvas.layer = LayerMask.NameToLayer("Default");
+            gameObject.layer = LayerMask.NameToLayer("Black");
+            healthBarCanvas.layer = LayerMask.NameToLayer("Black");
         }
     }
 
@@ -117,8 +117,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
     private void LateUpdate() {
         if(IsOwner){
-            fieldOfView.SetAimDirection(rb.rotation + 23);
-            fieldOfView.SetOrigin(transform.position);
+            fieldOfView.SetAimDirection(rb.rotation + 30);
+            fieldOfView.SetOrigin(weapon.transform.position);
         }
         rectTransform.rotation = Quaternion.Euler(0, 0,0);
         if (IsOwner){
