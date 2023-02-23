@@ -53,7 +53,7 @@ public class BotController : NetworkBehaviour, IDamageable
         {
             //Pistol
             case 1:
-                maxHealth = 30;
+                maxHealth = 100;
                 agent.speed = 7;
                 waitingTime = 1f;
                 weapon.damage = 7;
@@ -62,7 +62,7 @@ public class BotController : NetworkBehaviour, IDamageable
                 break;
             //Shotgun
             case 2:
-                maxHealth = 30;
+                maxHealth = 100;
                 agent.speed = 5;
                 waitingTime = 2f;
                 weapon.damage = 10;
@@ -71,7 +71,7 @@ public class BotController : NetworkBehaviour, IDamageable
                 break;
             //Rifle
             case 3:
-                maxHealth = 30;
+                maxHealth = 100;
                 agent.speed = 5;
                 waitingTime = 1f;
                 weapon.damage = 10;
@@ -80,7 +80,7 @@ public class BotController : NetworkBehaviour, IDamageable
                 break;
             //Sniper
             case 4:
-                maxHealth = 30;
+                maxHealth = 100;
                 agent.speed = 4;
                 waitingTime = 4f;
                 weapon.damage = 20;
@@ -89,7 +89,7 @@ public class BotController : NetworkBehaviour, IDamageable
                 break;
             //Tank
             case 5:
-                maxHealth = 30;
+                maxHealth = 300;
                 agent.speed = 2;
                 waitingTime = 2f;
                 weapon.damage = 10;
@@ -98,7 +98,7 @@ public class BotController : NetworkBehaviour, IDamageable
                 break;
             //Machine Gun
             case 6:
-                maxHealth = 30;
+                maxHealth = 100;
                 agent.speed = 5;
                 waitingTime = 0.2f;
                 weapon.damage = 2;

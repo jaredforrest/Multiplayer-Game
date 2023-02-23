@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-using Unity.Services.Lobbies.Models;
-
 
 public class GameManager : NetworkBehaviour
 {
     public string gameMap = "basic";
-    private GameObject map;
     public GameObject basicMap;
 
     public string playerType = "basic";
@@ -24,25 +21,24 @@ public class GameManager : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        switch(gameMap) {
+            case "basic": Instantiate(basicMap); 
+            break;
+        }
         SpawnPlayerServerRpc();
+        //myPlayer.GetComponent<PlayerController>().fieldOfView = fieldOfView;
 
         if(IsHost){
             Instantiate(HealtBoostSpawner);
             Instantiate(BotSpawner);
-
-            Lobby lobby = GameObject.Find("DataForMulti").GetComponent<DataContainer>().lobby;
-
-            BotSpawner.GetComponent<Bot1Spawner>().lobbySize = lobby.MaxPlayers;
-
-            switch(lobby.Data["GameMap"].Value) {
-                case "test_map_name":
-                    map = Instantiate(basicMap); 
-                    break;
-            }
-            map.GetComponent<NetworkObject>().Spawn();
         }
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 
     [ServerRpc(RequireOwnership = false)]
     public void SpawnPlayerServerRpc(ServerRpcParams serverRpcParams = default)

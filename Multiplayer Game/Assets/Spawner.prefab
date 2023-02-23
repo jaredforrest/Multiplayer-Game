@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.15372324, a: 0}
+  m_Color: {r: 0, g: 1, b: 0.15372324, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,8 +99,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bot: {fileID: 7731915261220428634, guid: 8f86e825caa132c45b697791433d2c10, type: 3}
-  initialDelay: 0
-  lobbySize: 7
 --- !u!114 &7288917914150615236
 MonoBehaviour:
   m_ObjectHideFlags: 0
