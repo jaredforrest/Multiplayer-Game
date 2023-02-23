@@ -140,12 +140,12 @@ MonoBehaviour:
   rectTransform: {fileID: 1136953157012702311}
   rb: {fileID: 6021514839218384510}
   weapon: {fileID: 1098555153542659411}
-  fireRate: 0.01
+  fireRate: 0.5
   maxHealth: 100
   initialHealth: 0
   healthBarCanvas: {fileID: 1136953157012702236}
-  camera: {fileID: 0}
   footprint: {fileID: 6740020633084241408, guid: 785114f447402d84dbe91a36181d9769, type: 3}
+  fieldOfView: {fileID: 0}
 --- !u!50 &6021514839218384510
 Rigidbody2D:
   serializedVersion: 4
@@ -374,7 +374,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8589770618307525152, guid: 8700e8d42e1cd184fb6122c4d4233f26, type: 3}
       propertyPath: damage
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8589770618307525152, guid: 8700e8d42e1cd184fb6122c4d4233f26, type: 3}
       propertyPath: fireForce
