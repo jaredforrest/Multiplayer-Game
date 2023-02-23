@@ -39,6 +39,6 @@ public class Bullet : NetworkBehaviour
     }
 
     void FixedUpdate() {
-        GetComponent<Rigidbody2D>().velocity = new Vector3(1.0f,1.0f,1.0f);
+        GetComponent<Rigidbody2D>().velocity = transform.forward * 100;
     }
 }
