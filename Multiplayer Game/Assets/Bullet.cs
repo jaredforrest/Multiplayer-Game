@@ -7,6 +7,8 @@ public class Bullet : NetworkBehaviour
 {
     public int damage;
     public ulong shooterCliendId = 0;
+    
+    public int speed = 10;
     public bool fromPlayer;
     void Start()
     {
@@ -35,5 +37,9 @@ public class Bullet : NetworkBehaviour
         }
 
         gameObject.GetComponent<NetworkObject>().Despawn();
+    }
+    
+    void FixedUpdate() {
+        GetComponent<Rigidbody2D>().velocity = transform.up * 25;
     }
 }

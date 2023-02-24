@@ -64,6 +64,7 @@ public class GameLobbyScript : MonoBehaviour
 
     public Transform LobbiesContentContainer;
     public GameObject LobbiesContentPrefab;
+    public DataContainer Datacontainer;
 
 
 
@@ -180,6 +181,12 @@ public class GameLobbyScript : MonoBehaviour
             IAL_MapName.text = joinedLobby.Data["GameMap"].Value;
             IAL_MaxPlayers.text = joinedLobby.MaxPlayers.ToString();
             IAL_LobbyCode.text = joinedLobby.LobbyCode;
+                    
+            if (hostLobby != null){
+                IAL_StartBtn.gameObject.SetActive(true);
+            }else{
+                IAL_StartBtn.gameObject.SetActive(false);
+            }
 
             if((joinedLobby.Data["JoinCode"].Value != "") && (gameStartCheck == false)){
                 JoinRelay(joinedLobby.Data["JoinCode"].Value);
@@ -424,6 +431,8 @@ public class GameLobbyScript : MonoBehaviour
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
 
             updateJoinCode(joinCode);
+
+            Datacontainer.lobby = hostLobby;
 
             RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
 

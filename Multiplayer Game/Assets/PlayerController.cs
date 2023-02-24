@@ -48,6 +48,11 @@ public class PlayerController : NetworkBehaviour, IDamageable
         m_Animator = gameObject.GetComponent<Animator>();
 
         fieldOfView = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
+
+        if(IsOwner){
+            gameObject.layer = LayerMask.NameToLayer("Top");
+            healthBarCanvas.layer = LayerMask.NameToLayer("Top");
+        }
     }
 
 
@@ -85,6 +90,10 @@ public class PlayerController : NetworkBehaviour, IDamageable
         //var mousePos = Input.mousePosition;
         //mousePos.z = 10; // select distance = 10 units from the camera
         //mousePosition = GetComponent<Camera>().ScreenToWorldPoint(mousePos);
+        if(IsOwner){
+            fieldOfView.SetAimDirection(rb.rotation + 30);
+            fieldOfView.SetOrigin(weapon.transform.position);
+        }
     }
 
 
@@ -97,15 +106,17 @@ public class PlayerController : NetworkBehaviour, IDamageable
         Vector2 aimDirection = mousePosition - rb.position;
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         rb.rotation = aimAngle;
-        if(IsOwner){
-            fieldOfView.SetAimDirection(aimAngle + 45);
-            fieldOfView.SetOrigin(transform.position);
-        }
     }
 
     public void TakeDamage(int damage, bool fromPlayer, ulong shooterCliendId)
     {
         currentHealth.Value -= damage;
+        if (currentHealth.Value <= 0)
+        {
+            ScoreManager.Instance.AddPoint(shooterCliendId);
+            currentHealth.Value = maxHealth;
+            transform.position = new Vector2(0f, 0f);
+        }
     }
 
     private void LateUpdate() {

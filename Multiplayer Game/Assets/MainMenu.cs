@@ -32,10 +32,9 @@ public class MainMenu : NetworkBehaviour
         });
 
         Map1Btn.onClick.AddListener(() => {
-            NetworkManager.Singleton.StartHost();
-            NetworkManager.SceneManager.LoadScene("Game",  LoadSceneMode.Additive);
-            selectMap.SetActive(false);
-            StartSingleplayer();
+            SceneManager.LoadScene("Singleplayer");
+            Destroy(NetworkManager);
+            NetworkManager.Shutdown();
         });
 
     }

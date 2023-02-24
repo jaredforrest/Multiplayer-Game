@@ -257,7 +257,7 @@ MonoBehaviour:
   rifleSprite: {fileID: 21300000, guid: 7b94b684b4c95d143abb293145aba1ff, type: 3}
   rb: {fileID: 6218862092444750825}
   weapon: {fileID: 784677328474112196}
-  maxHealth: 100
+  maxHealth: 30
   healthBarCanvas: {fileID: 727935071898925451}
   rectTransform: {fileID: 727935071898925552}
   BotType: 0
