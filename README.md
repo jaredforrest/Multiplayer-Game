@@ -4,8 +4,9 @@ This was a 6-week project to built a top-down shooter game with Unity and coded 
 
 Shooter-X is a top-down tatical shooter game. The player takes on the role of a soldier fighting against waves of enimies to stay alive in the single player mode. Or battling it out against other players in multiplayer. The game features  and health boosts scattered across the map to help you in the fight against enemies with advance AI tracking so there is no where safe you can hide.
 
-
-
+##Screenshots
+![Screenshot_20230130_034315](https://user-images.githubusercontent.com/85391216/221839719-cd671968-473b-4df0-874f-86c142349f57.png)
+![Screenshot_20230130_034516](https://user-images.githubusercontent.com/85391216/221839729-178aa742-fa8d-41bf-b0f0-9cb96572f24e.png)
 
 ## Features
 
